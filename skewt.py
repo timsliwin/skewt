@@ -70,3 +70,20 @@ T_max    =   50.0 + C_to_K #Kelvin
 
 x_min, y_min = from_thermo(T_min - C_to_K, P_bottom)
 x_max, y_max = from_thermo(T_max - C_to_K, P_top)
+
+# Constant Pressure Levels in millibars
+P_levels = np.arange(1000.0, 150.0-50.0, -50.0)
+
+# Constant Temperature Levels in Celsius and Kelvin
+T_C_levels = np.arange(-80.0, 40.0+10.0, 10.0)
+T_levels   = T_C_levels + C_to_K
+
+# Constant Potential Temperature Levels in Kelvin
+theta_levels = np.arange(-40.0, 100.0+10.0, 10.0) + C_to_K
+
+# Constant Pseudoequivalent Potential Temperature Levels in Kelvin
+theta_ep_levels = theta_levels.copy()
+
+# Constant Mixing Ratio Levels in kg/kg (based on UCAR RAP sounding values)
+mixing_ratios = np.asarray([.4,1.0,2.0,3.0,5.0,8.0,12.0,16.0,20.0])/1000.0
+
