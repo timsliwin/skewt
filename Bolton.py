@@ -4,7 +4,7 @@ import numpy as np
 
 C_to_K  = 273.15
 c_p_dry = 1005.7  # J/(kg*K)
-#c_V_dry = TODO?
+#c_V_dry = ???
 eps     = 0.6220  # unitless, eps=(R_d/R_v)
 k_dry   = 0.2854  # unitless, k_dry=(R_d/c_p_dry)
 
@@ -146,7 +146,7 @@ def theta_dry(theta, P, P_0=1000.0):
 
     """
 
-    Tk = theta + np.power((P/P_0), k_dry)
+    Tk = theta * np.power((P/P_0), k_dry)
 
     return Tk
 
@@ -159,7 +159,7 @@ def pseudoeq_potential_T(T, P, w, P_0=1000.0):
        and so we must convert the input w to g/kg.
     """
 
-    r  = w / 1000.0  # kg/kg --> g/kg
+    r  = w * 1000.0  # kg/kg --> g/kg
     Tk = T + C_to_K
 
 
