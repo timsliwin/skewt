@@ -101,7 +101,7 @@ y_all_P    = y_from_P(P_all)
 x_T_levels = [ x_from_TP(Ti, P_all) for Ti in T_levels ]
 x_thetas   = [ x_from_TP(Bolton.theta_dry(theta_i, P_all), P_all) for theta_i in theta_levels ]
 
-x_mixing_ratios = [ x_from_TP(Bolton.mixing_ratio_line(P_all, Bolton.sat_mixing_ratio(P_all, theta_i-C_to_K))+C_to_K, P_all) for theta_i in theta_levels ]
+x_mixing_ratios = [ x_from_TP(Bolton.mixing_ratio_line(P_all, mixing_ratio)+C_to_K,P_all) for mixing_ratio in mixing_ratios]
 
 mesh_T, mesh_P = np.meshgrid(np.arange(-60.0, T_levels.max()-C_to_K+0.1, 0.1), P_all)
 theta_ep_mesh  = Bolton.theta_ep_field(mesh_T, mesh_P)
