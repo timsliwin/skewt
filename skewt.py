@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.axisartist import Subplot
 from matplotlib.ticker import FuncFormatter, Formatter
 from mpl_toolkits.axisartist.grid_helper_curvelinear import GridHelperCurveLinear
+from readSoundings import parse_SPC
+
+sounding_file = '/cygwin/home/Tim/skewt/LIX_14101300_OBS.txt'
 
 C_to_K = 273.15
 
@@ -108,6 +111,26 @@ x_mixing_ratios = [ x_from_TP(Bolton.mixing_ratio_line(P_all, mixing_ratio)+C_to
 mesh_T, mesh_P = np.meshgrid(np.arange(-60.0, T_levels.max()-C_to_K+0.1, 0.1), P_all)
 theta_ep_mesh  = Bolton.theta_ep_field(mesh_T, mesh_P)
 
+#SOUNDING
+
+sounding_data = parse_SPC(sounding_file)
+
+snd_T = sounding_data['T']
+# all temperature values, degrees C, should be in this range.
+good_T = (snd_T > -100.0) & (snd_T < 60.0)
+
+snd_P = sounding_data['P']
+# all pressure values, millibars, should be in this range.
+#good_P = (snd_P > P_top) & (snd_P < P_bottom)
+
+snd_Td = sounding_data['Td']
+# all dewpoint values, degrees C, should be in this range.
+#good_Td = (snd_Td > -100.0) & (snd_Td < 60.0)
+
+x_snd_T  = x_from_TP(snd_T[good_T]+C_to_K, snd_P[good_T])
+x_snd_Td = x_from_TP(snd_Td[good_T]+C_to_K, snd_P[good_T])
+y_snd_P  = y_from_P(snd_P[good_T])
+
 #PLOTTING
 
 skew_grid_helper = GridHelperCurveLinear((from_thermo, to_thermo))
@@ -142,5 +165,10 @@ ax.contour(x_from_TP(mesh_T+C_to_K, mesh_P), y_from_P(mesh_P),
            theta_ep_mesh, theta_ep_levels, colors=moist_colors)
 
 ax.axis((x_min, x_max, y_min, y_max))
+
+#PLOT SOUNDING
+
+ax.plot(x_snd_Td, y_snd_P, linewidth=2, color='g')
+ax.plot(x_snd_T,  y_snd_P, linewidth=2, color='r')
 
 plt.show()
