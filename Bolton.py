@@ -86,7 +86,7 @@ def mixing_ratio_line(P,w_s):
     return Ts
 
 
-define RH(T,P,w):
+def RH(T,P,w):
     
     """Calculate the Relative Humidity in percent from the temperature in
        Celsius, the Pressure in millibars, and the mixing ratio in kg/kg.
@@ -94,12 +94,12 @@ define RH(T,P,w):
 
     w_s = sat_mixing_ratio(P,T)
 
-    RH = 100.0*w/w_s
+    rh = 100.0*w/w_s
 
-    return RH
+    return rh
 
 
-define T_LCL(T, RH):
+def T_LCL(T, RH):
 
     """Calculate the temperature in Kelvin at the Lifting Condensation Level
        (LCL) based on the temperature in Kelvin and the relative humidity in
@@ -109,9 +109,9 @@ define T_LCL(T, RH):
     fracBot1 = 1.0/(T-55.0)
     fracBot2 = np.log(RH/100.0)/2840.0
 
-    T_LCL = 55.0 + (1.0/(fracBot1-fracBot2))
+    T_lcl = 55.0 + (1.0/(fracBot1-fracBot2))
 
-    return T_LCL
+    return T_lcl
 
 
 def theta_dry(theta, P, P_0=1000.0):
@@ -146,7 +146,7 @@ def theta_dry(theta, P, P_0=1000.0):
 
     """
 
-    Tk = theta + np.power((P/P_0),K_dry)
+    Tk = theta + np.power((P/P_0), k_dry)
 
     return Tk
 
@@ -169,11 +169,11 @@ def pseudoeq_potential_T(T, P, w, P_0=1000.0):
 
 
 
-    RH = RH(T, P, w)
+    rh = RH(T, P, w)
 
-    T_LCL = T_LCL(Tk, RH):
+    T_lcl = T_LCL(Tk, rh)
 
-    term2part1 = (3.376/T_LCL)-0.00254
+    term2part1 = (3.376/T_lcl)-0.00254
 
     term2part2 = r*(1.0 + 0.81 * 0.001 * r)
 
