@@ -73,8 +73,10 @@ P_top    =  150.0          #millibars
 T_min    =  -40.0 + C_to_K #Kelvin
 T_max    =   50.0 + C_to_K #Kelvin
 
-x_min, y_min = from_thermo(T_min - C_to_K, P_bottom)
-x_max, y_max = from_thermo(T_max - C_to_K, P_top)
+x_min = x_from_TP(T_min,P_bottom)
+x_max = x_from_TP(T_max,P_bottom)
+y_min = y_from_P(P_bottom)
+y_max = y_from_P(P_top)
 
 # Constant Pressure Levels in millibars
 P_levels = np.arange(1000.0, 150.0-50.0, -50.0)
