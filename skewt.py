@@ -6,7 +6,7 @@ from matplotlib.ticker import FuncFormatter, Formatter
 from mpl_toolkits.axisartist.grid_helper_curvelinear import GridHelperCurveLinear
 from readSoundings import parse_SPC
 
-sounding_file = '/cygwin/home/Tim/skewt/LIX_14101300_OBS.txt'
+sounding_file = 'LIX_14101300_OBS.txt'
 
 C_to_K = 273.15
 
